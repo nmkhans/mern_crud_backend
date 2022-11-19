@@ -11,9 +11,9 @@ app.use(cors());
 app.use(bodyparser.json());
 
 //? database connection
-/* mongoose.connect("")
+mongoose.connect("mongodb://localhost:27017/mern_crud")
     .then(() => console.log("database connected"))
-    .catch((error) => console.log(error)) */
+    .catch((error) => console.log(error))
 
 //? handle routes
 app.use("/api/v1", router);
