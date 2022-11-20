@@ -3,6 +3,7 @@ const router = require("./src/routes/api");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyparser = require("body-parser");
+require("dotenv").config();
 
 
 //? app configuration
@@ -11,7 +12,13 @@ app.use(cors());
 app.use(bodyparser.json());
 
 //? database connection
-mongoose.connect("mongodb://localhost:27017/mern_crud")
+const uri = process.env.DATABASE_URI;
+const databaseConfig = {
+    user: process.env.DATABASE_USER, 
+    pass: process.env.DATABASE_PASSWORD
+}    
+
+mongoose.connect(uri, databaseConfig)
     .then(() => console.log("database connected"))
     .catch((error) => console.log(error))
 
