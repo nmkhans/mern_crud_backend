@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 require("dotenv").config();
 const router = require("./src/routes/api");
 const mongoose = require("mongoose");
@@ -24,6 +25,7 @@ mongoose.connect(uri, databaseConfig)
 
 //? handle routes
 app.use("/api/v1", router);
+app.use("/public", express.static(path.join(__dirname, "/public")));
 
 //? handle undefined routes
 app.use("*", (req, res) => {
