@@ -40,11 +40,17 @@ const getProduct = async (req, res) => {
 //? update a product
 const updateProduct = async (req, res) => {
     try {
-        const data = req.body;
+        const {name, code, unitPrice, quantity} = req.body;
         const { id } = req.params;
         const updatedDoc = {
-            $set: data
+            $set: {
+                name: name && name,
+                code: code && code,
+                unitPrice: unitPrice && unitPrice,
+                quantity: quantity && quantity
+            }
         }
+
         const result = await productModel.updateOne({ _id: id }, updatedDoc, { upsert: true });
 
         res.status(200).json({
