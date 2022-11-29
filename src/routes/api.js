@@ -5,7 +5,8 @@ const {
     addProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSingleProduct
 } = require("../controllers/productController");
 const uploadPhoto = require("../middleware/uploadPhoto");
 
@@ -20,8 +21,11 @@ router.get("/", defaultController);
 //? create new product
 router.post("/add-product", addProduct);
 
-//? get all procucts
+//? get all products
 router.get("/get-products", getProduct);
+
+//? get single product
+router.get("/get-single-product/:id", getSingleProduct)
 
 //? update a product
 router.put("/update-product/:id", updateProduct);

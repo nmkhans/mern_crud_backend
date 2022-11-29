@@ -37,18 +37,33 @@ const getProduct = async (req, res) => {
     }
 }
 
+//? get single product
+const getSingleProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await productModel.findOne({ _id: id });
+
+        res.status(200).json({
+            success: true,
+            message: "Product Detail",
+            data: data
+        })
+    } catch (error) {
+        res.status(500).josn({
+            success: false,
+            message: "Product not found!",
+            error: error
+        })
+    }
+}
+
 //? update a product
 const updateProduct = async (req, res) => {
     try {
-        const {name, code, unitPrice, quantity} = req.body;
+        const data = req.body;
         const { id } = req.params;
         const updatedDoc = {
-            $set: {
-                name: name && name,
-                code: code && code,
-                unitPrice: unitPrice && unitPrice,
-                quantity: quantity && quantity
-            }
+            $set: data
         }
 
         const result = await productModel.updateOne({ _id: id }, updatedDoc, { upsert: true });
@@ -92,6 +107,7 @@ const deleteProduct = async (req, res) => {
 module.exports = {
     addProduct,
     getProduct,
+    getSingleProduct,
     updateProduct,
     deleteProduct
 }
